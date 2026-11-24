@@ -14,7 +14,7 @@ afterEach(() => {
 describe('App', () => {
   it('deals five supplies, refills one and undoes the draw', async () => {
     const user = userEvent.setup()
-    render(<App />)
+    const { container } = render(<App />)
 
     await user.click(
       screen.getByRole('button', { name: /deal the five supplies/i }),
@@ -30,6 +30,12 @@ describe('App', () => {
       screen.getByRole('img', { name: /71 of 96 tiles left/i }),
     ).toBeInTheDocument()
 
+    const rowsBefore = Array.from(
+      container.querySelectorAll<HTMLElement>('.tile-row'),
+    )
+    const untouchedRow = rowsBefore[1]
+    const untouchedTile = untouchedRow?.firstElementChild
+
     const refillButtons = screen.getAllByRole('button', {
       name: /refill supply/i,
     })
@@ -40,6 +46,14 @@ describe('App', () => {
     expect(
       screen.getByRole('img', { name: /66 of 96 tiles left/i }),
     ).toBeInTheDocument()
+
+    // Only the refilled supply should re-mount (and replay its deal animation).
+    const rowsAfter = Array.from(
+      container.querySelectorAll<HTMLElement>('.tile-row'),
+    )
+    expect(rowsAfter[0]).not.toBe(rowsBefore[0])
+    expect(rowsAfter[1]).toBe(untouchedRow)
+    expect(rowsAfter[1]?.firstElementChild).toBe(untouchedTile)
 
     await user.click(screen.getByRole('button', { name: /undo draw/i }))
     expect(

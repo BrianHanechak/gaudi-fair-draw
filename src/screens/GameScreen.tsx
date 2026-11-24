@@ -30,6 +30,18 @@ export function GameScreen({
   const size = SET_SIZE[state.mode]
   const lowBag = remaining > 0 && remaining < size * 3
 
+  // Only the supply that received a refill should re-run its deal animation.
+  // Using the whole log length as the key would remount every card.
+  const refillCounts = state.log.reduce<number[]>(
+    (counts, event) => {
+      if (event.kind === 'refill') {
+        counts[event.slot] = (counts[event.slot] ?? 0) + 1
+      }
+      return counts
+    },
+    Array.from({ length: state.supplies.length }, () => 0),
+  )
+
   return (
     <div className="page">
       <header className="game-header">
@@ -95,7 +107,7 @@ export function GameScreen({
                   remaining={remaining}
                   size={size}
                   fresh={freshSlot === slot}
-                  drawKey={state.log.length}
+                  drawKey={refillCounts[slot] ?? 0}
                   onRefill={() => onRefill(slot)}
                 />
               ))}
