@@ -1,0 +1,16 @@
+# Normalize text files to LF on every platform, including Windows.
+* text=auto eol=lf
+
+# Never touch binary assets.
+*.png binary -eol
+*.jpg binary -eol
+*.jpeg binary -eol
+*.gif binary -eol
+*.webp binary -eol
+*.ico binary -eol
+*.woff binary -eol
+*.woff2 binary -eol
+
+# Explicit LF for files where a stray CRLF causes real trouble.
+*.sh text eol=lf
+*.py text eol=lf
