@@ -21,8 +21,8 @@ interface SetupScreenProps {
 const PREVIEW_TILES: readonly TileType[] = [
   { shape: 'shard', colour: 'blue' },
   { shape: 'square', colour: 'green' },
-  { shape: 'pentagon', colour: 'amber' },
-  { shape: 'triangle', colour: 'sky' },
+  { shape: 'pentagon', colour: 'yellow' },
+  { shape: 'triangle', colour: 'gray' },
   { shape: 'square', colour: 'blue' },
 ]
 

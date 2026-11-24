@@ -15,8 +15,8 @@ ICONS = ROOT / "public" / "icons"
 INK = (16, 36, 60)
 DEEP = (29, 63, 107)
 CREAM = (255, 243, 221)
-SKY = (174, 217, 230)
-AMBER = (229, 161, 59)
+GRAY = (184, 185, 178)
+YELLOW = (239, 194, 63)
 GREEN = (77, 169, 106)
 
 # 0–100 coordinates, matching src/lib/tiles.ts
@@ -61,8 +61,8 @@ def draw_icon(canvas: int, motif: float) -> Image.Image:
     unit = canvas * motif / 2
     start = (canvas - unit * 2) / 2
     placements = [
-        ("shard", SKY, start, start),
-        ("square", AMBER, start + unit, start),
+        ("shard", GRAY, start, start),
+        ("square", YELLOW, start + unit, start),
         ("triangle", GREEN, start, start + unit),
         ("pentagon", CREAM, start + unit, start + unit),
     ]

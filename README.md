@@ -91,13 +91,13 @@ and the icon paths together.
 `src/lib/tiles.ts` is the single source of truth:
 
 - `SHAPE_IDS`: `shard`, `square`, `pentagon`, `triangle`
-- `COLOUR_IDS`: `blue`, `sky`, `green`, `amber`
+- `COLOUR_IDS`: `blue`, `gray`, `green`, `yellow`
 - `COPIES_PER_TYPE = 6`, `TOTAL_TILES = 96`
 
-The colour names follow what the pieces look like in the rulebook (deep blue,
-pale/sky blue, green, amber). If your copy or your group uses different names
-(for example "grey" and "yellow"), rename them in `COLOURS`; everything else,
-including the bag table and the spoken summaries, follows automatically.
+The colour names follow the four pieces: blue, gray, green and yellow. If your
+copy or your group uses different names, rename the `name` / `shortName` fields
+in `COLOURS`; the bag table and the spoken summaries follow automatically.
+Changing the colour IDs invalidates saved games, which then start fresh.
 
 The app uses simple geometric SVG shapes, not the game's artwork.
 

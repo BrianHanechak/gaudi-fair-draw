@@ -1,7 +1,7 @@
 import { tileName, type TileType } from './tiles'
 
 /**
- * "Blue square ×2 · Green pentagon · Amber triangle"
+ * "Blue square ×2 · Green pentagon · Yellow triangle"
  * Groups duplicates while keeping the order tiles were drawn in.
  */
 export function summariseTiles(tiles: readonly TileType[]): string {

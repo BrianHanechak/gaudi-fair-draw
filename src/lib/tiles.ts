@@ -9,7 +9,7 @@
 export const SHAPE_IDS = ['shard', 'square', 'pentagon', 'triangle'] as const
 export type ShapeId = (typeof SHAPE_IDS)[number]
 
-export const COLOUR_IDS = ['blue', 'sky', 'green', 'amber'] as const
+export const COLOUR_IDS = ['blue', 'gray', 'green', 'yellow'] as const
 export type ColourId = (typeof COLOUR_IDS)[number]
 
 export interface TileType {
@@ -63,12 +63,12 @@ export const COLOURS: Record<ColourId, ColourInfo> = {
     light: '#4a7cb9',
     dark: '#1e4069',
   },
-  sky: {
-    name: 'Sky blue',
-    shortName: 'Sky',
-    hex: '#aed9e6',
-    light: '#d3eef6',
-    dark: '#7cb2c4',
+  gray: {
+    name: 'Gray',
+    shortName: 'Gray',
+    hex: '#b8b9b2',
+    light: '#d9dad3',
+    dark: '#8a8b84',
   },
   green: {
     name: 'Green',
@@ -77,12 +77,12 @@ export const COLOURS: Record<ColourId, ColourInfo> = {
     light: '#74c58c',
     dark: '#327a4c',
   },
-  amber: {
-    name: 'Amber',
-    shortName: 'Amber',
-    hex: '#e5a13b',
-    light: '#f5c36f',
-    dark: '#b97a21',
+  yellow: {
+    name: 'Yellow',
+    shortName: 'Yellow',
+    hex: '#efc23f',
+    light: '#f9dd80',
+    dark: '#c3961f',
   },
 }
 
