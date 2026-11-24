@@ -2,7 +2,14 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 import { defineConfig } from 'vitest/config'
 
+// GitHub Pages serves project sites from /<repo>/. The workflow supplies the
+// path via VITE_BASE; a normal local build stays at the domain root.
+const rawBase = (process.env.VITE_BASE ?? '/').trim()
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`
+const withBase = (path: string) => `${base}${path.replace(/^\//, '')}`
+
 export default defineConfig({
+  base,
   plugins: [
     react(),
     VitePWA({
@@ -18,21 +25,21 @@ export default defineConfig({
         background_color: '#f6efe2',
         display: 'standalone',
         orientation: 'any',
-        start_url: '/',
-        scope: '/',
+        start_url: base,
+        scope: base,
         icons: [
           {
-            src: '/icons/icon-192.png',
+            src: withBase('icons/icon-192.png'),
             sizes: '192x192',
             type: 'image/png',
           },
           {
-            src: '/icons/icon-512.png',
+            src: withBase('icons/icon-512.png'),
             sizes: '512x512',
             type: 'image/png',
           },
           {
-            src: '/icons/maskable-512.png',
+            src: withBase('icons/maskable-512.png'),
             sizes: '512x512',
             type: 'image/png',
             purpose: 'maskable',

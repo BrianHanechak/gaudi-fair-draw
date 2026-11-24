@@ -53,11 +53,52 @@ whole bag with `crypto.getRandomValues` and unbiased rejection sampling
 (`randomInt`), then every refill consumes the next slice. That makes draws
 uniform, without replacement, resumable, and auditable.
 
-## Deploying to AWS
+## Hosting
 
-The build is a plain static site; S3 + CloudFront is the straightforward path.
-S3 website endpoints do not serve HTTPS, so use CloudFront if you want the PWA
-to be installable.
+The app is a static, installable PWA with no backend, so **GitHub Pages is the
+recommended option**. AWS S3 + CloudFront is documented below for cases where
+you need custom headers or edge configuration.
+
+### GitHub Pages (recommended)
+
+The repo includes [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
+On every push to `main` it lints, tests, builds with the repository's Pages base
+path, and deploys `dist`.
+
+One-time setup:
+
+1. Push to `main` (or run the workflow manually).
+2. In the repository: **Settings → Pages → Build and deployment → Source →
+   GitHub Actions**.
+3. Wait for the "Deploy to GitHub Pages" workflow to finish.
+
+The site appears at `https://<user>.github.io/<repo>/`. The base path is
+supplied by `actions/configure-pages`; local builds still use `/`. If you add a
+**custom domain** at the root of the domain, override the workflow env with
+`VITE_BASE: /`.
+
+```sh
+# Reproduce the Pages build locally (replace with your repo name):
+VITE_BASE=/gaudi-fair-draw/ pnpm build
+VITE_BASE=/gaudi-fair-draw/ pnpm preview
+```
+
+Good to know:
+
+- Pages is HTTPS and free for public repositories.
+- There are no custom response headers (so no CSP/HSTS tuning), no edge
+  functions, and soft limits of about 1 GB per site and 100 GB/month.
+- Pages caches `index.html` for about 10 minutes; the auto-updating service
+  worker handles app updates.
+- Pages serves `.webmanifest` as `application/manifest+json`, so the PWA
+  manifest works as-is.
+
+### AWS S3 + CloudFront (alternative)
+
+Choose AWS if you need custom cache/security headers, WAF, private hosting,
+multiple environments, or traffic beyond Pages' soft limits. The build is a
+plain static site; S3 website endpoints do not serve HTTPS, so use CloudFront if
+you want the PWA to be installable.
 
 ```sh
 pnpm build
@@ -83,8 +124,8 @@ Point CloudFront at the bucket (OAC, private bucket), set the default root
 object to `index.html`, and invalidate on each deploy. No server, database or
 accounts are involved.
 
-If you host under a subpath, set Vite's `base`, the manifest `start_url`/`scope`
-and the icon paths together.
+For a root-hosted site leave the base at `/`; for a subpath, set `VITE_BASE` at
+build time. The manifest, service worker and icon URLs follow it.
 
 ## Tile data
 
