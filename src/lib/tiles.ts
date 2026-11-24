@@ -35,8 +35,8 @@ export interface ColourInfo {
 export const SHAPES: Record<ShapeId, ShapeInfo> = {
   shard: {
     name: 'Shard',
-    description: 'slanted quadrilateral',
-    path: 'M57 7 L90 25 L46 93 L12 42 Z',
+    description: 'tall four-sided shard',
+    path: 'M62 4 L82 42 L34 96 L12 28 Z',
   },
   square: {
     name: 'Square',
@@ -46,12 +46,12 @@ export const SHAPES: Record<ShapeId, ShapeInfo> = {
   pentagon: {
     name: 'Pentagon',
     description: 'five-sided piece',
-    path: 'M50 12 L85 38 L72 82 L28 82 L15 38 Z',
+    path: 'M47 4 L88 30 L78 90 L24 90 L10 30 Z',
   },
   triangle: {
     name: 'Triangle',
     description: 'wide triangle',
-    path: 'M14 24 H86 L50 90 Z',
+    path: 'M5 28 L95 28 L52 90 Z',
   },
 }
 
